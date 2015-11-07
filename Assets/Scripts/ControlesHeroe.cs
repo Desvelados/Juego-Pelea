@@ -6,20 +6,23 @@ public class ControlesHeroe : MonoBehaviour {
 	//[HideInInspector]
 	public bool facingRight = true;			// For determining which way the player is currently facing.
 	[HideInInspector]
-	public bool jump = false;				// Condition for whether the player should jump.
-	
-	
-	public float moveForce = 365f;			// Amount of force added to move the player left and right.
+	public bool jump = false;               // Condition for whether the player should jump.
+
+    //arranca en 0 y si llega a 100 muere el tipito
+    public int healthPoints = 50;
+    public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	//public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
 	public float jumpForce = 450f;			// Amount of force added when the player jumps.
 	
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
-	private Animator anim;					// Reference to the player's animator component.
+	private Animator anim;                  // Reference to the player's animator component.
 
-	//objeto de secuencia de prueba
-	KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe.TestSequencePressed));
+    public float speed = 0.5f;
+
+    //objeto de secuencia de prueba
+    KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe.TestSequencePressed));
 
 	static void TestSequencePressed(KeySequence sec){
 		Debug.Log("FUNCIONA EL COMBOOOOO");
@@ -52,13 +55,28 @@ public class ControlesHeroe : MonoBehaviour {
 		lTestSequence.Update ();
 
 		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetButtonDown("Jump") && grounded)
+		if(Input.GetKey(KeyCode.W) && grounded)
 			jump = true;
 	}
 
 	void FixedUpdate (){
-		// Cache the horizontal input.
-		float h = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += Vector3.left * 0.17f;// * Time.deltaTime;// speed;// * Time.deltaTime;
+            anim.SetFloat("Speed", 1);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += Vector3.right * 0.17f;// * Time.deltaTime;
+            anim.SetFloat("Speed", 1);
+        }
+        else
+        {
+            anim.SetFloat("Speed", 0);
+        }
+        /*
+        // Cache the horizontal input.
+        float h = Input.GetAxis("Horizontal");
 		
 		// The Speed animator parameter is set to the absolute value of the horizontal input.
 		anim.SetFloat("Speed", Mathf.Abs(h));
@@ -81,9 +99,9 @@ public class ControlesHeroe : MonoBehaviour {
 		else if(h < 0 && facingRight)
 			// ... flip the player.
 			Flip();
-		
-		// If the player should jump...
-		if(jump)
+		*/
+        // If the player should jump...
+        if (jump)
 		{
 			// Set the Jump animator trigger parameter.
 			anim.SetTrigger("Jump");
@@ -100,7 +118,7 @@ public class ControlesHeroe : MonoBehaviour {
 		}
 	}
 
-	void Flip (){
+	public void Flip (){
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
 		
@@ -109,4 +127,11 @@ public class ControlesHeroe : MonoBehaviour {
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+    public void takeDamage(int cant)
+    {
+        healthPoints += cant;
+        //hago mierda para actualizar la barra
+
+    }
 }
