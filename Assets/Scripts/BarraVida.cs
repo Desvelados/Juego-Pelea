@@ -6,8 +6,8 @@ public class BarraVida : MonoBehaviour
     public GUIStyle barraVida;
     public Texture2D imagenFondo;
     public Texture2D imagenFrent;
-    public int healthPoints = 50;
-    
+    public int healthPoints = 0;
+    private bool vivo = true;
     void OnGUI()
     {
         //GUI.BeginGroup(new Rect(160, 100, 512, 20));
@@ -21,12 +21,16 @@ public class BarraVida : MonoBehaviour
         GUI.EndGroup();
         GUI.EndGroup();
     }
-    void takeDamage(int cant)
+    public void takeDamage(int cant)
     {
-        healthPoints += cant;
-        if(healthPoints >= 100)
+        if (vivo)
         {
-            //me mori
+            healthPoints += cant;
+            if (healthPoints >= 100)
+            {
+                //dejo de restar cosas
+                vivo = false;
+            }
         }
     }
 }

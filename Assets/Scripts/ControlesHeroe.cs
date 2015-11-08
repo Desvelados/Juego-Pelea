@@ -7,9 +7,10 @@ public class ControlesHeroe : MonoBehaviour {
 	public bool facingRight = true;			// For determining which way the player is currently facing.
 	[HideInInspector]
 	public bool jump = false;               // Condition for whether the player should jump.
+    private bool vivo = true;
 
     //arranca en 0 y si llega a 100 muere el tipito
-    public int healthPoints = 50;
+    public int healthPoints = 100;
     public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	//public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
@@ -18,15 +19,15 @@ public class ControlesHeroe : MonoBehaviour {
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;                  // Reference to the player's animator component.
-
+    private GameObject healthBar;
     public float speed = 0.5f;
 
     //objeto de secuencia de prueba
     KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe.TestSequencePressed));
 
 	static void TestSequencePressed(KeySequence sec){
-		Debug.Log("FUNCIONA EL COMBOOOOO");
-
+        GameObject heroe = GameObject.FindGameObjectWithTag("Player");
+        heroe.GetComponentInChildren<Spawner>().shoot();
 	}
 
 
@@ -34,11 +35,12 @@ public class ControlesHeroe : MonoBehaviour {
 		// Setting up references.
 		groundCheck = transform.Find("GroundCheck");
 		anim = GetComponent<Animator>();
+        healthBar = GameObject.FindGameObjectWithTag("BarraP1");
 
-		//declaracion de secuencia de prueba
-		lTestSequence.AddKey2Sequence("left");
-		lTestSequence.AddKey2Sequence("down");
-		lTestSequence.AddKey2Sequence("right");
+        //declaracion de secuencia de prueba
+        lTestSequence.AddKey2Sequence(KeyCode.A);
+        lTestSequence.AddKey2Sequence(KeyCode.S);
+        lTestSequence.AddKey2Sequence(KeyCode.D);
 	}
 
 	// Use this for initialization
@@ -130,8 +132,22 @@ public class ControlesHeroe : MonoBehaviour {
 
     public void takeDamage(int cant)
     {
-        healthPoints += cant;
-        //hago mierda para actualizar la barra
-
+        if (vivo)
+        {
+            healthPoints -= cant;
+            //hago mierda para actualizar la barra
+            healthBar.GetComponent<BarraVida>().takeDamage(cant);
+            if (healthPoints <= 0)
+            {
+                //me mori
+                GetComponent<ControlesHeroe>().enabled = false;
+                //animacion de muerte
+                //anim.SetTrigger("Die");
+                anim.SetFloat("Speed", 0);
+                anim.transform.Rotate(0, 0, 90);
+                anim.Stop();
+                vivo = false;
+            }
+        }
     }
 }

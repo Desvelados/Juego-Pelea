@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class KeySequence {
 
-	public delegate void HandleCallback(KeySequence pSequence); 
-	List<string> mKeyList = new List<string>(); 
+	public delegate void HandleCallback(KeySequence pSequence);
+    List<KeyCode> mKeyList = new List<KeyCode>(); 
 	int mProgressIndex = 0 ; 
 	HandleCallback mHCB = null;
 
@@ -13,7 +13,7 @@ public class KeySequence {
 	{
 		mHCB = pCallbackFunction;
 	}
-	public void AddKey2Sequence(string pKeyStr)
+    public void AddKey2Sequence(KeyCode pKeyStr)
 	{
 	    mKeyList.Add(pKeyStr);
 	}

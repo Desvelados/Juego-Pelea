@@ -7,6 +7,7 @@ public class ControlesHeroe2 : MonoBehaviour {
 	public bool facingRight = true;			// For determining which way the player is currently facing.
 	[HideInInspector]
 	public bool jump = false;               // Condition for whether the player should jump.
+    private bool vivo = true;
 
     public int healthPoints = 100;
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
@@ -17,13 +18,14 @@ public class ControlesHeroe2 : MonoBehaviour {
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
+    private GameObject healthBar;
 
 	//objeto de secuencia de prueba
 	KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe2.TestSequencePressed));
 
 	static void TestSequencePressed(KeySequence sec){
-		Debug.Log("FUNCIONA EL COMBOOOOO");
-
+        GameObject heroe = GameObject.FindGameObjectWithTag("Player2");
+        heroe.GetComponentInChildren<Spawnerizq>().shoot();
 	}
 
 
@@ -31,11 +33,12 @@ public class ControlesHeroe2 : MonoBehaviour {
 		// Setting up references.
 		groundCheck = transform.Find("GroundCheck");
 		anim = GetComponent<Animator>();
+        healthBar = GameObject.FindGameObjectWithTag("BarraP2");
 
 		//declaracion de secuencia de prueba
-		lTestSequence.AddKey2Sequence("left");
-		lTestSequence.AddKey2Sequence("down");
-		lTestSequence.AddKey2Sequence("right");
+        lTestSequence.AddKey2Sequence(KeyCode.RightArrow);
+        lTestSequence.AddKey2Sequence(KeyCode.DownArrow);
+        lTestSequence.AddKey2Sequence(KeyCode.LeftArrow);
 	}
 
 	// Use this for initialization
@@ -114,7 +117,6 @@ public class ControlesHeroe2 : MonoBehaviour {
 			jump = false;
 		}
 	}
-
 	public void Flip (){
 		// Switch the way the player is labelled as facing.
 		facingRight = !facingRight;
@@ -124,4 +126,24 @@ public class ControlesHeroe2 : MonoBehaviour {
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+    public void takeDamage(int cant)
+    {
+        if (vivo)
+        {
+            healthPoints -= cant;
+            //hago cosa para actualizar la barra
+            healthBar.GetComponent<BarraVida2>().takeDamage(cant);
+            if (healthPoints <= 0)
+            {
+                //me mori
+                GetComponent<ControlesHeroe2>().enabled = false;
+                //animacion de muerte
+                //anim.SetTrigger("Die");
+                anim.SetFloat("Speed", 0);
+                anim.transform.Rotate(0, 0, -90);
+                anim.Stop();
+                vivo = false;
+            }
+        }
+    }
 }

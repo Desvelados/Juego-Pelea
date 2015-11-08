@@ -7,7 +7,8 @@ public class Fueguito : MonoBehaviour {
 	public GameObject hero;
 	// Use this for initialization
 	void Start () {
-		derecha = true;
+        derecha = true; 
+        Destroy(gameObject, 2);
 	}
 	
 	// Update is called once per frame
@@ -41,4 +42,35 @@ public class Fueguito : MonoBehaviour {
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        // If it hits an enemy...
+        if (col.tag == "Player2")
+        {
+            // ... find the Enemy script and call the Hurt function.
+            col.gameObject.GetComponent<ControlesHeroe2>().takeDamage(30);
+
+            // Call the explosion instantiation.
+            //OnExplode();
+
+            // Destroy the rocket.
+            Destroy(gameObject);
+        }
+        // Otherwise if the player manages to shoot himself...
+        else if (col.gameObject.tag == "Player")
+        {
+            // Instantiate the explosion and destroy the rocket.
+            //OnExplode();
+            Destroy(gameObject);
+        }
+        else
+        {
+            //OnExplode();
+            Destroy(gameObject);
+        }
+    }
+    void OnExplode()
+    {
+        //animacion de destruir el cosito
+    }
 }

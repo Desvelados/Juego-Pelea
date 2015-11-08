@@ -18,19 +18,23 @@ public class Spawner : MonoBehaviour {
 	void Update () {
 		transform.position.Set (target.position.x, target.position.y, target.position.z);
 
-		if (Input.GetKeyUp (KeyCode.DownArrow)) 
+		/*if (Input.GetKeyUp (KeyCode.S)) 
 		{
-			GameObject Fueguito = Instantiate (prefab, transform.position, transform.rotation) as GameObject;
-			Fueguito.name = "F" + count++ ;
-			
-			Fueguito fueg = Fueguito.GetComponent<Fueguito>();
-			
-			//GameObject heroe = GameObject.FindGameObjectWithTag ("Player");
-			//Animator anim = heroe.GetComponent<Animator>();
-			anim.SetTrigger("Shoot");
-			
-			fueg.Shoot();
-			Destroy (Fueguito, 3f);
-		}
+            shoot();
+			//Destroy (Fueguito, 3f);
+		}*/
 	}
+    public void shoot() 
+    {
+        GameObject Fueguito = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+        Fueguito.name = "F" + count++;
+
+        Fueguito fueg = Fueguito.GetComponent<Fueguito>();
+
+        //GameObject heroe = GameObject.FindGameObjectWithTag ("Player");
+        //Animator anim = heroe.GetComponent<Animator>();
+        anim.SetTrigger("Shoot");
+
+        fueg.Shoot();
+    }
 }
