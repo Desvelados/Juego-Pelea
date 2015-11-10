@@ -8,19 +8,24 @@ public class ControlesHeroe : MonoBehaviour {
 	[HideInInspector]
 	public bool jump = false;               // Condition for whether the player should jump.
     private bool vivo = true;
-
+    private bool pegando = false;
     //arranca en 0 y si llega a 100 muere el tipito
     public int healthPoints = 100;
     public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	//public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
-	public float jumpForce = 450f;			// Amount of force added when the player jumps.
+	public float jumpForce = 500f;			// Amount of force added when the player jumps.
 	
 	private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;                  // Reference to the player's animator component.
     private GameObject healthBar;
     public float speed = 0.5f;
+    public float block = 1f;
+    //GameObject heroe;
+    //PolygonCollider2D punio;
+    public GameObject prefab;
+    public AudioClip[] ouchClips, punchClips;	
 
     //objeto de secuencia de prueba
     KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe.TestSequencePressed));
@@ -36,6 +41,11 @@ public class ControlesHeroe : MonoBehaviour {
 		groundCheck = transform.Find("GroundCheck");
 		anim = GetComponent<Animator>();
         healthBar = GameObject.FindGameObjectWithTag("BarraP1");
+        
+        //heroe = GameObject.FindGameObjectWithTag("Player");
+        //punio = GetComponent<PolygonCollider2D>();
+        //punio.enabled = false;
+        //punio.isTrigger = false;
 
         //declaracion de secuencia de prueba
         lTestSequence.AddKey2Sequence(KeyCode.A);
@@ -56,12 +66,13 @@ public class ControlesHeroe : MonoBehaviour {
 		//Update del objeto de secuencia de prueba
 		lTestSequence.Update ();
 
-		// If the jump button is pressed and the player is grounded then the player should jump.
-		if(Input.GetKey(KeyCode.W) && grounded)
+        // If the jump button is pressed and the player is grounded then the player should jump.
+        if (Input.GetKey(KeyCode.W) && grounded)
 			jump = true;
 	}
 
 	void FixedUpdate (){
+        anim.SetBool("block", false);
         if (Input.GetKey(KeyCode.A))
         {
             transform.position += Vector3.left * 0.17f;// * Time.deltaTime;// speed;// * Time.deltaTime;
@@ -71,6 +82,20 @@ public class ControlesHeroe : MonoBehaviour {
         {
             transform.position += Vector3.right * 0.17f;// * Time.deltaTime;
             anim.SetFloat("Speed", 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if(!pegando)
+            {
+                pegando = true;
+                Pegar();
+                pegando = false;
+            }
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            anim.SetBool("block", true);
+            block = 0.5f;
         }
         else
         {
@@ -105,6 +130,7 @@ public class ControlesHeroe : MonoBehaviour {
         // If the player should jump...
         if (jump)
 		{
+            Debug.Log("estoy saltando");
 			// Set the Jump animator trigger parameter.
 			anim.SetTrigger("Jump");
 			
@@ -134,9 +160,12 @@ public class ControlesHeroe : MonoBehaviour {
     {
         if (vivo)
         {
-            healthPoints -= cant;
+            int i = Random.Range(0, ouchClips.Length);
+            AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
+            healthPoints -= (int)(cant*block);
+            anim.SetTrigger("Hurt");
             //hago mierda para actualizar la barra
-            healthBar.GetComponent<BarraVida>().takeDamage(cant);
+            healthBar.GetComponent<BarraVida>().takeDamage((int)(cant*block));
             if (healthPoints <= 0)
             {
                 //me mori
@@ -147,7 +176,23 @@ public class ControlesHeroe : MonoBehaviour {
                 anim.transform.Rotate(0, 0, 90);
                 anim.Stop();
                 vivo = false;
+                GameObject ko = GameObject.FindGameObjectWithTag("ko");
+                ko.GetComponent<SpriteRenderer>().enabled = true;
+                GameObject gano2 = GameObject.FindGameObjectWithTag("gano2");
+                gano2.GetComponent<SpriteRenderer>().enabled = true;
+
+                Application.LoadLevel("Menu");
             }
         }
+    }
+    void Pegar()
+    {
+        //tirar animacion
+        anim.SetTrigger("Patear");
+        GameObject pun = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+        pun.name = "P1";
+        //tirar sonidito
+        int i = Random.Range(0, punchClips.Length);
+        AudioSource.PlayClipAtPoint(punchClips[i], transform.position);
     }
 }

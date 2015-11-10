@@ -11,7 +11,7 @@ public class BarraVida : MonoBehaviour
     void OnGUI()
     {
         //GUI.BeginGroup(new Rect(160, 100, 512, 20));
-        GUI.BeginGroup(new Rect(10, 10, 512, 20));
+        GUI.BeginGroup(new Rect(100, 115, 512, 20));
         GUI.Box(new Rect(0, 0,512,20),imagenFondo,barraVida);
         
         GUI.BeginGroup(new Rect(0, 0, healthPoints, 20));

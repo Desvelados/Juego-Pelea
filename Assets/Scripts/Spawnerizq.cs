@@ -6,7 +6,7 @@ public class Spawnerizq : MonoBehaviour {
 	private int count=0;
 	public Transform target;
 	public Animator anim;
-
+    public AudioClip fireball;
 	// Use this for initialization
 	void Start () {
 		GameObject heroe = GameObject.FindGameObjectWithTag ("Player2");
@@ -25,6 +25,7 @@ public class Spawnerizq : MonoBehaviour {
 	}
     public void shoot() 
     {
+        AudioSource.PlayClipAtPoint(fireball, transform.position);
         GameObject Fueguito = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
         Fueguito.name = "F2" + count++;
 

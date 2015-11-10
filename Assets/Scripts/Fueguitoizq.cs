@@ -4,7 +4,7 @@ using System.Collections;
 public class Fueguitoizq : MonoBehaviour {
 	public bool derecha;
 	public ControlesHeroe2 ch;
-	public GameObject hero;
+    public GameObject hero;
 	// Use this for initialization
 	void Start () {
         derecha = true;

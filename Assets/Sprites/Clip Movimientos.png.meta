@@ -1,0 +1,232 @@
+fileFormatVersion: 2
+guid: e9a475a47c0090d44a138a225505e985
+timeCreated: 1447071304
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Clip Movimientos_0
+    21300002: Clip Movimientos_1
+    21300004: Clip Movimientos_2
+    21300006: Clip Movimientos_3
+    21300008: Clip Movimientos_4
+    21300010: Clip Movimientos_5
+    21300012: Clip Movimientos_6
+    21300014: Clip Movimientos_7
+    21300016: Clip Movimientos_8
+    21300018: Clip Movimientos_9
+    21300020: Clip Movimientos_10
+    21300022: Clip Movimientos_11
+    21300024: Clip Movimientos_12
+    21300026: Clip Movimientos_13
+    21300028: Clip Movimientos_14
+    21300030: Clip Movimientos_16
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Clip Movimientos_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 290
+        width: 94
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 287
+        width: 92
+        height: 144
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_2
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 294
+        width: 128
+        height: 134
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_3
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 287
+        width: 106
+        height: 144
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_4
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 308
+        width: 63
+        height: 122
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_5
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 297
+        width: 127
+        height: 134
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_6
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 292
+        width: 94
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 135
+        width: 94
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_8
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 156
+        width: 60
+        height: 122
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 158
+        width: 80
+        height: 130
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_10
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 138
+        width: 107
+        height: 143
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_11
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 158
+        width: 63
+        height: 122
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_12
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 143
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_13
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 149
+        width: 86
+        height: 133
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_14
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 55
+        width: 140
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Clip Movimientos_16
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 7
+        width: 127
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

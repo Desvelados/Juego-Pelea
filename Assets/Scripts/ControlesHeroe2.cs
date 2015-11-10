@@ -13,12 +13,15 @@ public class ControlesHeroe2 : MonoBehaviour {
 	public float moveForce = 365f;			// Amount of force added to move the player left and right.
 	public float maxSpeed = 5f;				// The fastest the player can travel in the x axis.
 	//public AudioClip[] jumpClips;			// Array of clips for when the player jumps.
-	public float jumpForce = 450f;			// Amount of force added when the player jumps.
-	
-	private Transform groundCheck;			// A position marking where to check if the player is grounded.
+	public float jumpForce = 500f;          // Amount of force added when the player jumps.
+    public float block = 1f;
+
+    private Transform groundCheck;			// A position marking where to check if the player is grounded.
 	private bool grounded = false;			// Whether or not the player is grounded.
 	private Animator anim;					// Reference to the player's animator component.
     private GameObject healthBar;
+    public AudioClip[] ouchClips, punchClips;
+    public GameObject prefab;
 
 	//objeto de secuencia de prueba
 	KeySequence lTestSequence = new KeySequence(new KeySequence.HandleCallback(ControlesHeroe2.TestSequencePressed));
@@ -34,7 +37,7 @@ public class ControlesHeroe2 : MonoBehaviour {
 		groundCheck = transform.Find("GroundCheck");
 		anim = GetComponent<Animator>();
         healthBar = GameObject.FindGameObjectWithTag("BarraP2");
-
+        
 		//declaracion de secuencia de prueba
         lTestSequence.AddKey2Sequence(KeyCode.RightArrow);
         lTestSequence.AddKey2Sequence(KeyCode.DownArrow);
@@ -69,6 +72,15 @@ public class ControlesHeroe2 : MonoBehaviour {
         {
             transform.position += Vector3.right * 0.17f;// * Time.deltaTime;
             anim.SetFloat("Speed", 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            Pegar();
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            block = 0.5f;
+            anim.SetBool("block", true);
         }
         else
         {
@@ -130,9 +142,11 @@ public class ControlesHeroe2 : MonoBehaviour {
     {
         if (vivo)
         {
-            healthPoints -= cant;
+            int i = Random.Range(0, ouchClips.Length);
+            AudioSource.PlayClipAtPoint(ouchClips[i], transform.position);
+            healthPoints -= (int)(cant * block);
             //hago cosa para actualizar la barra
-            healthBar.GetComponent<BarraVida2>().takeDamage(cant);
+            healthBar.GetComponent<BarraVida2>().takeDamage((int)(cant * block));
             if (healthPoints <= 0)
             {
                 //me mori
@@ -143,7 +157,23 @@ public class ControlesHeroe2 : MonoBehaviour {
                 anim.transform.Rotate(0, 0, -90);
                 anim.Stop();
                 vivo = false;
+                GameObject ko = GameObject.FindGameObjectWithTag("ko");
+                ko.GetComponent<SpriteRenderer>().enabled = true;
+                GameObject gano1 = GameObject.FindGameObjectWithTag("gano1");
+                gano1.GetComponent<SpriteRenderer>().enabled = true;
+
+                Application.LoadLevel("Menu");
             }
         }
+    }
+    void Pegar()
+    {
+        anim.SetTrigger("Punch");
+        GameObject pun = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+        pun.name = "P2";
+        //tirar sonidito
+        int i = Random.Range(0, punchClips.Length);
+        AudioSource.PlayClipAtPoint(punchClips[i], transform.position);
+        //tirar animacion
     }
 }

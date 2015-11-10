@@ -3,10 +3,15 @@
 
 public class MenuScript : MonoBehaviour
 {
+
+
+    public Texture2D IMGboton;
+
     void OnGUI()
     {
-        const int buttonWidth = 84;
-        const int buttonHeight = 60;
+        const int buttonWidth = 100;
+        const int buttonHeight = 80;
+
 
         //Donde se posiciona el boton
         Rect buttonRect = new Rect(
@@ -15,9 +20,9 @@ public class MenuScript : MonoBehaviour
               buttonWidth,
               buttonHeight
             );
-
+        
         //Creo el boton (pedorro)
-        if (GUI.Button(buttonRect, "Start!"))
+        if (GUI.Button(buttonRect,IMGboton))
         {
             //Haciendo click arranca el jueguito
             Application.LoadLevel("Escena1");
